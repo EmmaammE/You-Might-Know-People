@@ -9,8 +9,8 @@ import java.util.*;
 
 public class FriendRankReduce extends Reducer<LongWritable,FriendRankWritable,LongWritable, Text> {
 
-    public double getRankOfFriend(List<List<Long>> friends){
-        double rank = 0;
+    public Double getRankOfFriend(List<List<Long>> friends){
+        Double rank = 0.0;
         for (List<Long> val:friends) {
             rank += 1/Math.log(val.get(1));
         }
@@ -51,11 +51,11 @@ public class FriendRankReduce extends Reducer<LongWritable,FriendRankWritable,Lo
 
             public int compare(Long o1, Long o2) {
 
-                double v1 = getRankOfFriend(mutualFriends.get(o1));
-                double v2 = getRankOfFriend(mutualFriends.get(o2));
-                if (v1 > v2) {
+                Double v1 = getRankOfFriend(mutualFriends.get(o1));
+                Double v2 = getRankOfFriend(mutualFriends.get(o2));
+                if ( v1.compareTo(v2) > 0 ) {
                     return -1;
-                } else if (v1==v2 && o1 < o2) {
+                } else if (v1.compareTo(v2)==0 && o1 < o2) {
                     return -1;
                 } else {
                     return 1;
